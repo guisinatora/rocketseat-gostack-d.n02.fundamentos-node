@@ -23,8 +23,12 @@ class CreateTransactionService {
 
     const balance = this.transactionsRepository.getBalance();
 
-    if (type === 'outcome' && balance.total <= value) {
+    if (type === 'outcome' && balance.total < value) {
       throw Error('Saldo insuficiente')
+    };
+
+    if(!["income", "outcome"].includes(type)) {
+      throw Error('Tipo inválido')
     };
 
     return transaction;
